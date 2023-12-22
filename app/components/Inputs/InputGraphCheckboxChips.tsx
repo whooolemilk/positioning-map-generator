@@ -2,7 +2,7 @@
 
 import { InputChip } from "@/app/components/Inputs";
 import Image from "next/image";
-import Graph from "@/app/public/graph.png";
+import Graph from "@/app/assets/images/graph.png";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ConceptType, conceptTranslation } from "../Maps/Map";
 

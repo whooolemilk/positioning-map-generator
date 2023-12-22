@@ -1,11 +1,9 @@
 "use client";
 
-import GraphLg from "@/app/public/graph-lg.png";
-
 import Image from "next/image";
 import { useEffect, useMemo } from "react";
 import { CardConceptImage } from "../Cards/CardConceptImage";
-import OpenAI from "openai";
+import GraphLg from "@/app/assets/images/graph-lg.png";
 
 export type ConceptType =
   | "romantic"

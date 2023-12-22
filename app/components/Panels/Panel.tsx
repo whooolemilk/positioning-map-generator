@@ -8,12 +8,7 @@ type PanelProps = {
 };
 
 export const Panel = ({ data, close }: PanelProps) => {
-  const submit = (e) => {
-    e.preventDefault();
-    if (close) {
-      close(e);
-    }
-  };
+  const submit = () => {};
 
   return (
     <section className="bg-white rounded-xl p-8 mx-4 w-full max-w-[736px] text-left">

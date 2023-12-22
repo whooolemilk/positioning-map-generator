@@ -15,13 +15,13 @@ type ModalProps = {
 export const Modal = ({ close, data }: ModalProps) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const onMouseDown = (e) => {
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setIsMouseDown(true);
     }
   };
 
-  const onMouseUp = (e) => {
+  const onMouseUp = () => {
     if (isMouseDown) {
       close();
     }
