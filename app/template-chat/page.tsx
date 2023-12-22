@@ -20,15 +20,17 @@ export type PromptType = {
   poster_component: string[];
 };
 
-export default function TemplateChat() {
+export default function Home() {
   const [design, setDesign] = useState<string>("");
   const [target, setTarget] = useState<string>("");
+  const [subject, setSubject] = useState<string>("");
   const [concept, setConcept] = useState<string>("");
   const [generatedIdeas, setGeneratedIdeas] = useState<ConceptDataType[]>([]);
 
   const promptTemplate = `## オーダー内容
-- ${design}
-- ${target}
+- デザイン対象：${design}
+- 被写体：${subject}
+- 顧客ターゲット：${target}
 以上のオーダー内容に基づく、コンセプトキーワードそれぞれのポスターの企画を生成してください。
 出力時は、以下JSONのフォーマットと出力されるJSONの例に基づき、JSONの配列を返してください。
 ## コンセプトキーワード
@@ -43,20 +45,14 @@ JSONのフォーマット“”"
   “”"
 出力されるJSONの例“”"
 {
-  concept: "カジュアル",
-  catchphrase: "自由を感じて、ペダルを踏み込もう！",
-  description:
-    "カジュアルな服装の若者たちが楽しそうに自転車に乗っている雰囲気を表現します。背景には都市の風景や公園、川などが広がっています。",
-  poster_component: [
-    "young man on bicycle",
-    "young woman on bicycle",
-    "urban park background",
-    "sunny day",
-  ],
+  "concept": "ビューティ",
+  "catchphrase": "あなたの美しさを、さらに引き立てる。",
+  "description": "美しさをテーマに、清潔感と上質な感じを表現するトイレットペーパーのポスターです。モデルの美しい肌とトイレットペーパーの白さが対比され、美と清潔感が連想されます。",
+  "poster_component": ["beautiful female model", "white toilet paper", "soft lighting", "minimalistic background"]
 }
   “”"
   キーは必ず含ませる。
-  ポスターの構成要素を表す<poster_component>は、必ず、英語を使うこと。
+  ポスターの構成要素を表す<poster_component>の“component“は、必ず、英語を使うこと。
   ポスターの構成要素を表す<poster_component>は、なるべく詳細な情景を示すものであること。
   ポスターの構成要素を表す<poster_component>は、文字に関する情報は加えないこと。
   ポスターの構成要素を表す<poster_component>は、<_>は用いず、半角空白を使うこと。
@@ -74,7 +70,7 @@ JSONのフォーマット“”"
       const { data } = await axios.post("/api/image", {
         prompt: prompt.poster_component.join(),
         amount: 1,
-        resolution: "512x512",
+        resolution: "1024x1024",
       });
 
       // urlのみ抽出
@@ -110,13 +106,6 @@ JSONのフォーマット“”"
           images: urls,
         });
       }
-
-      // const newData: ConceptDataType = {
-      //   concept: prompt.concept,
-      //   catchphrase: prompt.catchphrase,
-      //   description: prompt.description,
-      //   images: urls,
-      // };
 
       console.log("pushed generatedIdeas:", generatedIdeas);
 
@@ -164,6 +153,17 @@ JSONのフォーマット“”"
               placeholder="例）サイクリングキャンペーンのポスター"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setDesign(e.target.value);
+                setInput(promptTemplate);
+              }}
+            />
+          </div>
+          <div>
+            <InputText
+              label="被写体は？"
+              id="subject"
+              placeholder="例）bicycle, young boy"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSubject(e.target.value);
                 setInput(promptTemplate);
               }}
             />
