@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { ConceptDataType, conceptTranslation } from "../Maps/Map";
+import axios from "axios";
+import fs from "fs";
 
 type PanelProps = {
   close?: (e: any) => void;
@@ -9,6 +12,28 @@ type PanelProps = {
 
 export const Panel = ({ data, close }: PanelProps) => {
   const submit = () => {};
+
+  const onButtonClick = async (url: string, path: string) => {
+    const response = await axios({
+      method: "GET",
+      url,
+      responseType: "stream",
+    });
+
+    const writer = fs.createWriteStream(path);
+
+    response.data.pipe(writer);
+
+    return new Promise((resolve, reject) => {
+      writer.on("finish", resolve);
+      writer.on("error", reject);
+    });
+  };
+
+  // ボタンクリックイベントのシミュレート
+  // onButtonClick("https://example.com/image.jpg", "./image.jpg")
+  //   .then(() => console.log("Image downloaded successfully"))
+  //   .catch((error) => console.error("Failed to download image:", error));
 
   return (
     <section className="bg-white rounded-xl p-8 mx-4 w-full max-w-[736px] text-left">
@@ -45,12 +70,13 @@ export const Panel = ({ data, close }: PanelProps) => {
           </>
         ))}
       </div>
-      <button
-        type="submit"
+      <Link
+        href={data.images[0]}
+        // type="submit"
         className="mt-4 inline-flex justify-center w-full rounded-full bg-blue-600 py-3 font-semibold text-white shadow-sm hover:bg-blue-500"
       >
         デザインコンセプトをマッピング！
-      </button>
+      </Link>
     </section>
   );
 };

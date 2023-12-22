@@ -74,7 +74,7 @@ JSONのフォーマット“”"
       const { data } = await axios.post("/api/image", {
         prompt: prompt.poster_component.join(),
         amount: 1,
-        resolution: "512x512",
+        resolution: "1024x1024",
       });
 
       // urlのみ抽出
