@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { ConceptDataType, conceptTranslation } from "../Maps/Map";
-import axios from "axios";
-import fs from "fs";
+// import axios from "axios";
+// import fs from "fs";
 
 type PanelProps = {
   close?: (e: any) => void;
@@ -13,22 +13,22 @@ type PanelProps = {
 export const Panel = ({ data, close }: PanelProps) => {
   const submit = () => {};
 
-  const onButtonClick = async (url: string, path: string) => {
-    const response = await axios({
-      method: "GET",
-      url,
-      responseType: "stream",
-    });
+  // const onButtonClick = async (url: string, path: string) => {
+  //   const response = await axios({
+  //     method: "GET",
+  //     url,
+  //     responseType: "stream",
+  //   });
 
-    const writer = fs.createWriteStream(path);
+  //   const writer = fs.createWriteStream(path);
 
-    response.data.pipe(writer);
+  //   response.data.pipe(writer);
 
-    return new Promise((resolve, reject) => {
-      writer.on("finish", resolve);
-      writer.on("error", reject);
-    });
-  };
+  //   return new Promise((resolve, reject) => {
+  //     writer.on("finish", resolve);
+  //     writer.on("error", reject);
+  //   });
+  // };
 
   // ボタンクリックイベントのシミュレート
   // onButtonClick("https://example.com/image.jpg", "./image.jpg")
