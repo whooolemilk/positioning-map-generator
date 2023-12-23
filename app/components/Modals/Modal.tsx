@@ -8,8 +8,6 @@ import { Panel } from "../Panels";
 type ModalProps = {
   close: () => void;
   data: ConceptDataType;
-
-  // children: React.ReactNode;
 };
 
 export const Modal = ({ close, data }: ModalProps) => {

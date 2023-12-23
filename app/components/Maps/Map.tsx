@@ -53,8 +53,6 @@ type MapProps = {
 
 export const Map = ({ data }: MapProps) => {
   const romanticData = useMemo(() => {
-    console.log("data2:", data);
-
     return data.find((item) => item.concept === conceptTranslation["romantic"]);
   }, [data]);
 
@@ -127,11 +125,6 @@ export const Map = ({ data }: MapProps) => {
     () => data.find((item) => item.concept === conceptTranslation["formal"]),
     [data]
   );
-
-  useEffect(() => {
-    console.log("data:", data);
-    console.log("romanticData:", romanticData);
-  }, [data]);
 
   return (
     <div className="mt-10 mb-4">

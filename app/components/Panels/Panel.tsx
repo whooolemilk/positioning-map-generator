@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ConceptDataType, conceptTranslation } from "../Maps/Map";
+import Image from "next/image";
 // import axios from "axios";
 // import fs from "fs";
 
@@ -47,7 +48,7 @@ export const Panel = ({ data, close }: PanelProps) => {
         </button>
       </header>
       <div className="flex mt-4">
-        <img src={data.images[0]} className="w-[300px] rounded-lg" />
+        <Image src={data.images[0]} alt="" className="w-[300px] rounded-lg" />
         <div className="pl-4">
           <div>
             <p className="text-sm font-medium mb-1">キャッチコピー</p>
@@ -63,7 +64,11 @@ export const Panel = ({ data, close }: PanelProps) => {
         {[...Array(5)].map((_, index) => (
           <>
             {data.images[index] ? (
-              <img src={data.images[index]} className="w-[122px] rounded-lg" />
+              <Image
+                src={data.images[index]}
+                className="w-[122px] rounded-lg"
+                alt=""
+              />
             ) : (
               <div className="w-[122px] h-[122px] rounded-lg bg-gray-100"></div>
             )}
@@ -72,10 +77,9 @@ export const Panel = ({ data, close }: PanelProps) => {
       </div>
       <Link
         href={data.images[0]}
-        // type="submit"
         className="mt-4 inline-flex justify-center w-full rounded-full bg-blue-600 py-3 font-semibold text-white shadow-sm hover:bg-blue-500"
       >
-        デザインコンセプトをマッピング！
+        画像を保存する
       </Link>
     </section>
   );

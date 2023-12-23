@@ -77,22 +77,11 @@ JSONのフォーマット“”"
       const urls: string[] = data.data.map(
         (image: { url: string }) => image.url
       );
-      console.log("urls:", urls);
 
       // ローカルストレージに保存するデータを作成
-      console.log("idea.concept:", generatedIdeas);
-      console.log(prompt.concept);
-
-      generatedIdeas.map((idea) => {
-        console.log("idea.concept:", idea.concept);
-        console.log("prompt.concept:", prompt.concept);
-        console.log("=", idea.concept === prompt.concept);
-      });
-
       const isExisted = generatedIdeas.some(
         (idea) => idea.concept === prompt.concept
       );
-      console.log("isExisted:", isExisted);
 
       if (isExisted) {
         generatedIdeas
@@ -106,8 +95,6 @@ JSONのフォーマット“”"
           images: urls,
         });
       }
-
-      console.log("pushed generatedIdeas:", generatedIdeas);
 
       // ローカルストレージにset
       const generatedIdeasJson = JSON.stringify(generatedIdeas);
@@ -131,9 +118,6 @@ JSONのフォーマット“”"
 
   useEffect(() => {
     setInput(promptTemplate);
-    console.log(promptTemplate);
-
-    return;
   }, [design, target, concept]);
 
   return (
@@ -142,7 +126,6 @@ JSONのフォーマット“”"
       <form
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           handleSubmit(e);
-          console.log(e);
         }}
       >
         <div className="space-y-5 bg-white py-2">

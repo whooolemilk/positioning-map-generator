@@ -23,15 +23,4 @@ export async function POST(req: Request) {
   });
 
   return NextResponse.json(response);
-  //   // ストリーミング形式でopenaiにたずねる
-  //   const response = await openai.chat.completions.create({
-  //     model: "gpt-3.5-turbo",
-  //     stream: true,
-  //     messages: messages,
-  //   });
-
-  //   // いい感じにテキストなおす
-  //   const stream = OpenAIStream(response);
-  //   // ストリームで応答
-  //   return new StreamingTextResponse(stream);
 }

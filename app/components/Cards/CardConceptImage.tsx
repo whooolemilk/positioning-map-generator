@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { ConceptDataType } from "../Maps/Map";
 import { Modal } from "../Modals";
-import { Panel } from "../Panels";
+import Empty from "@/app/assets/images/empty.png";
+import Image from "next/image";
 
 type CardConceptImageProps = {
   label: string;
@@ -46,9 +47,9 @@ export const CardConceptImage = ({
       `}
     >
       <button className="w-20 h-20 flex" onClick={toggleModal}>
-        <img
+        <Image
           className="rounded-lg"
-          src={data?.images[0] ? data?.images[0] : undefined}
+          src={data?.images[0] ? data?.images[0] : Empty}
           alt={label}
           width={80}
           height={80}
