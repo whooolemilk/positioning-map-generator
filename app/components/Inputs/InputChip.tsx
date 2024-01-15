@@ -1,6 +1,6 @@
 "use client";
 
-import { ConceptType, conceptTranslation } from "../Maps/Map";
+import { ConceptType, conceptTranslation } from "@/app/components/Maps";
 
 type InputChipProps = {
   id: ConceptType;

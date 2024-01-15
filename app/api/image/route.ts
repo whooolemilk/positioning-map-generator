@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-// import { OpenAIStream, StreamingTextResponse } from "ai";
+import { ImageGenerateParams } from "openai/resources/images";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -11,15 +11,18 @@ export const runtime = "edge";
 
 export async function POST(req: Request) {
   // requestからpromptを抽出
-  const { prompt, amount, resolution } = await req.json();
+  const { prompt, n, size }: ImageGenerateParams = await req.json();
   if (!prompt) {
     return new NextResponse("Prompt are required", { status: 400 });
   }
 
   const response = await openai.images.generate({
     prompt,
-    n: Number(amount),
-    size: resolution,
+    n: n,
+    size: size,
+    model: "dall-e-3",
+    style: "vivid",
+    response_format: "url",
   });
 
   return NextResponse.json(response);

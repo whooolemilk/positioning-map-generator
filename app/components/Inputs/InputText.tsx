@@ -4,7 +4,7 @@ type InputTextProps = {
   label: string;
   id: string;
   placeholder: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const InputText = ({

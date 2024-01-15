@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ConceptDataType, conceptTranslation } from "@/app/components/Maps";
+import { DesignDataType, conceptTranslation } from "@/app/components/Maps";
 
-type PanelProps = {
+type PanelDesignProps = {
   close?: (e: any) => void;
-  data: ConceptDataType;
+  data: DesignDataType;
 };
 
-export const Panel = ({ data, close }: PanelProps) => {
+export const PanelDesign = ({ data, close }: PanelDesignProps) => {
   return (
     <section className="bg-white rounded-xl p-8 mx-4 w-full max-w-[736px] text-left">
       <header className="flex justify-between">

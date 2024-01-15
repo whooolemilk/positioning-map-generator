@@ -2,127 +2,90 @@
 
 import Image from "next/image";
 import { useMemo } from "react";
-import { CardConceptImage } from "../Cards/CardConceptImage";
 import GraphLg from "@/app/assets/images/graph-lg.png";
+import { generatedConceptType } from "@/app/generate-concept/page";
+import { CardDesignImage } from "@/app/components/Cards";
 
-export type ConceptType =
-  | "romantic"
-  | "pretty"
-  | "clear"
-  | "casual"
-  | "natural"
-  | "elegant"
-  | "cool"
-  | "dynamic"
-  | "gorgeous"
-  | "sic"
-  | "wild"
-  | "classic"
-  | "dandy"
-  | "modern"
-  | "formal";
-
-export const conceptTranslation = {
-  romantic: "ロマンチック",
-  pretty: "プリティー",
-  clear: "クリア",
-  casual: "カジュアル",
-  natural: "ナチュラル",
-  elegant: "エレガント",
-  cool: "クール",
-  dynamic: "ダイナミック",
-  gorgeous: "ゴージャス",
-  sic: "シック",
-  wild: "ワイルド",
-  classic: "クラシック",
-  dandy: "ダンディ",
-  modern: "モダン",
-  formal: "フォーマル",
-};
-
-export type ConceptDataType = {
-  concept: ConceptType;
-  catchphrase: string;
-  description: string;
+export type DesignDataType = generatedConceptType & {
   images: string[];
 };
 
-type MapProps = {
-  data: ConceptDataType[];
+type MapDesignProps = {
+  data: DesignDataType[];
 };
 
-export const Map = ({ data }: MapProps) => {
+export const MapDesign = ({ data }: MapDesignProps) => {
   const romanticData = useMemo(() => {
-    return data.find((item) => item.concept === conceptTranslation["romantic"]);
+    return data.find((item) => item.concept === "romantic");
   }, [data]);
 
   const prettyData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["pretty"]),
+    () => data.find((item) => item.concept === "pretty"),
     [data]
   );
 
   const clearData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["clear"]),
+    () => data.find((item) => item.concept === "clear"),
     [data]
   );
 
   const casualData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["casual"]),
+    () => data.find((item) => item.concept === "casual"),
     [data]
   );
 
   const naturalData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["natural"]),
+    () => data.find((item) => item.concept === "natural"),
     [data]
   );
 
   const elegantData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["elegant"]),
+    () => data.find((item) => item.concept === "elegant"),
     [data]
   );
 
   const coolData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["cool"]),
+    () => data.find((item) => item.concept === "cool"),
     [data]
   );
 
   const dynamicData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["dynamic"]),
+    () => data.find((item) => item.concept === "dynamic"),
     [data]
   );
 
   const gorgeousData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["gorgeous"]),
+    () => data.find((item) => item.concept === "gorgeous"),
     [data]
   );
 
   const sicData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["sic"]),
+    () => data.find((item) => item.concept === "sic"),
     [data]
   );
 
   const wildData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["wild"]),
+    () => data.find((item) => item.concept === "wild"),
     [data]
   );
 
   const classicData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["classic"]),
+    () => data.find((item) => item.concept === "classic"),
     [data]
   );
 
   const dandyData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["dandy"]),
+    () => data.find((item) => item.concept === "dandy"),
     [data]
   );
 
   const modernData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["modern"]),
+    () => data.find((item) => item.concept === "modern"),
     [data]
   );
 
   const formalData = useMemo(
-    () => data.find((item) => item.concept === conceptTranslation["formal"]),
+    () => data.find((item) => item.concept === "formal"),
     [data]
   );
 
@@ -131,106 +94,91 @@ export const Map = ({ data }: MapProps) => {
       <p className="text-md font-bold text-gray-900">ポジショニングマップ</p>
       <div className="absolute w-full">
         <div className="flex justify-center">
-          <CardConceptImage
+          <CardDesignImage
             label="ロマンチック"
             data={romanticData}
-            onClick={() => {}}
             positionStyle="mt-[70px]"
           />
         </div>
         <div className="flex mt-[-90px]">
-          <CardConceptImage
+          <CardDesignImage
             label="プリティ"
             data={prettyData}
-            onClick={() => {}}
             positionStyle="ml-[140px]"
           />
-          <CardConceptImage
+          <CardDesignImage
             label="クリア"
             data={clearData}
-            onClick={() => {}}
             positionStyle="ml-[300px] "
           />
         </div>
         <div className="flex">
-          <CardConceptImage
+          <CardDesignImage
             label="カジュアル"
             data={casualData}
-            onClick={() => {}}
             positionStyle="ml-[90px]"
           />
-          <CardConceptImage
+          <CardDesignImage
             label="ナチュラル"
             data={naturalData}
-            onClick={() => {}}
             positionStyle="ml-[20px]"
           />
         </div>
         <div className="flex mt-[-30px]">
-          <CardConceptImage
+          <CardDesignImage
             label="エレガント"
             data={elegantData}
-            onClick={() => {}}
             positionStyle="ml-[340px]"
           />
-          <CardConceptImage
+          <CardDesignImage
             label="クール"
             data={coolData}
-            onClick={() => {}}
             positionStyle="ml-[145px]"
           />
         </div>
         <div className="flex mt-[-74px]">
-          <CardConceptImage
+          <CardDesignImage
             label="ダイナミック"
             data={dynamicData}
-            onClick={() => {}}
             positionStyle="ml-[90px]"
           />
-          <CardConceptImage
+          <CardDesignImage
             label="ゴージャス"
             data={gorgeousData}
-            onClick={() => {}}
             positionStyle="ml-[20px]"
           />
-          <CardConceptImage
+          <CardDesignImage
             label="シック"
             data={sicData}
-            onClick={() => {}}
             positionStyle="ml-[180px]"
           />
         </div>
         <div className="flex">
-          <CardConceptImage
+          <CardDesignImage
             label="ワイルド"
             data={wildData}
-            onClick={() => {}}
             positionStyle="ml-[120px]"
           />
-          <CardConceptImage
+          <CardDesignImage
             label="クラシック"
             data={classicData}
-            onClick={() => {}}
             positionStyle="ml-[20px]"
           />
-          <CardConceptImage
+          <CardDesignImage
             label="ダンディ"
             data={dandyData}
-            onClick={() => {}}
             positionStyle="ml-[140px]"
           />
-          <CardConceptImage
+          <CardDesignImage
             label="モダン"
             data={modernData}
-            onClick={() => {}}
             positionStyle="ml-[20px]"
           />
         </div>
         <div className="flex">
-          <CardConceptImage
+          <CardDesignImage
             label="フォーマル"
             data={formalData}
-            onClick={() => {}}
             positionStyle="ml-[400px]"
           />
         </div>
