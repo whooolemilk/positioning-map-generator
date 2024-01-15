@@ -1,24 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { ConceptDataType } from "@/app/components/Maps";
-import { Modal } from "@/app/components/Modals";
 import Empty from "@/app/assets/images/empty.png";
 import Image from "next/image";
+import { DesignDataType } from "@/app/components/Maps";
+import { ModalDesign } from "@/app/components/Modals";
 
-type CardConceptImageProps = {
+type CardDesignImageProps = {
   label: string;
-  data?: ConceptDataType;
-  onClick: () => void;
+  data?: DesignDataType;
   positionStyle: string;
 };
 
-export const CardConceptImage = ({
+export const CardDesignImage = ({
   label,
-  onClick,
   data,
   positionStyle,
-}: CardConceptImageProps) => {
+}: CardDesignImageProps) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const toggleModal = () => {
@@ -31,19 +29,23 @@ export const CardConceptImage = ({
       ${!data?.images[0] && "invisible"}
       `}
     >
-      <button className="w-20 h-20 flex" onClick={toggleModal}>
+      <button className="relative w-20 h-20 flex" onClick={toggleModal}>
         <Image
           className="rounded-lg"
           src={data?.images[0] ? data?.images[0] : Empty}
           alt={label}
-          width={80}
-          height={80}
+          sizes="(max-width: 768px) 100vw,
+          (max-width: 1200px) 50vw,
+          33vw"
+          fill
         />
       </button>
       <p className="font-bold text-xs py-1 bg-gray-100 text-slate-700">
         {label}
       </p>
-      {isOpenModal && data && <Modal close={toggleModal} data={data}></Modal>}
+      {isOpenModal && data && (
+        <ModalDesign close={toggleModal} data={data}></ModalDesign>
+      )}
     </div>
   );
 };

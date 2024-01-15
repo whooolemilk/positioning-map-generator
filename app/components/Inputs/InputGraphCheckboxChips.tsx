@@ -3,21 +3,21 @@
 import { InputChip } from "@/app/components/Inputs";
 import Image from "next/image";
 import Graph from "@/app/assets/images/graph.png";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ConceptType, conceptTranslation } from "../Maps/Map";
+import { useEffect, useState } from "react";
+import { ConceptType } from "@/app/components/Maps";
 
 type InputGraphCheckboxChipsProps = {
   label: string;
-  updateConceptPrompt: Dispatch<SetStateAction<string>>;
+  onChange: (newConcept: string) => void;
 };
 
 export const InputGraphCheckboxChips = ({
   label,
-  updateConceptPrompt,
+  onChange,
 }: InputGraphCheckboxChipsProps) => {
   const [checkedValues, setCheckedValues] = useState<ConceptType[]>([]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleConceptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setCheckedValues([...checkedValues, e.target.value as ConceptType]);
     } else {
@@ -28,10 +28,8 @@ export const InputGraphCheckboxChips = ({
   };
 
   useEffect(() => {
-    const conceptPrompt = checkedValues
-      .map((value) => `<${conceptTranslation[value]}>`)
-      .join("");
-    updateConceptPrompt(conceptPrompt);
+    const conceptPrompt = checkedValues.map((value) => value).join(", ");
+    onChange(conceptPrompt);
   }, [checkedValues]);
 
   return (
@@ -39,59 +37,59 @@ export const InputGraphCheckboxChips = ({
       <p className="block text-sm font-medium">{label}</p>
       <div className="absolute w-full">
         <div className="text-center mt-[70px]">
-          <InputChip id="romantic" onChange={onChange} />
+          <InputChip id="romantic" onChange={handleConceptChange} />
         </div>
         <div className="flex mt-2">
           <div className="ml-[140px]">
-            <InputChip id="pretty" onChange={onChange} />
+            <InputChip id="pretty" onChange={handleConceptChange} />
           </div>
           <div className="ml-[300px]">
-            <InputChip id="clear" onChange={onChange} />
+            <InputChip id="clear" onChange={handleConceptChange} />
           </div>
         </div>
         <div className="flex mt-5">
           <div className="ml-[90px]">
-            <InputChip id="casual" onChange={onChange} />
+            <InputChip id="casual" onChange={handleConceptChange} />
           </div>
           <div className="ml-[20px]">
-            <InputChip id="natural" onChange={onChange} />
+            <InputChip id="natural" onChange={handleConceptChange} />
           </div>
         </div>
         <div className="flex mt-5">
           <div className="ml-[330px]">
-            <InputChip id="elegant" onChange={onChange} />
+            <InputChip id="elegant" onChange={handleConceptChange} />
           </div>
           <div className="ml-[90px]">
-            <InputChip id="cool" onChange={onChange} />
+            <InputChip id="cool" onChange={handleConceptChange} />
           </div>
         </div>
         <div className="flex mt-5">
           <div className="ml-[90px]">
-            <InputChip id="dynamic" onChange={onChange} />
+            <InputChip id="dynamic" onChange={handleConceptChange} />
           </div>
           <div className="ml-[20px]">
-            <InputChip id="gorgeous" onChange={onChange} />
+            <InputChip id="gorgeous" onChange={handleConceptChange} />
           </div>
           <div className="ml-[120px]">
-            <InputChip id="sic" onChange={onChange} />
+            <InputChip id="sic" onChange={handleConceptChange} />
           </div>
         </div>
         <div className="flex mt-5">
           <div className="ml-[120px]">
-            <InputChip id="wild" onChange={onChange} />
+            <InputChip id="wild" onChange={handleConceptChange} />
           </div>
           <div className="ml-[20px]">
-            <InputChip id="classic" onChange={onChange} />
+            <InputChip id="classic" onChange={handleConceptChange} />
           </div>
           <div className="ml-[90px]">
-            <InputChip id="dandy" onChange={onChange} />
+            <InputChip id="dandy" onChange={handleConceptChange} />
           </div>
           <div className="ml-[20px]">
-            <InputChip id="modern" onChange={onChange} />
+            <InputChip id="modern" onChange={handleConceptChange} />
           </div>
         </div>
         <div className="mt-5 ml-[400px]">
-          <InputChip id="formal" onChange={onChange} />
+          <InputChip id="formal" onChange={handleConceptChange} />
         </div>
       </div>
       <Image src={Graph} alt="" />

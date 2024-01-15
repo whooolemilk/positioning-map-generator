@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ConceptDataType, conceptTranslation } from "../Maps/Map";
 import Image from "next/image";
-// import axios from "axios";
-// import fs from "fs";
+import { ConceptDataType, conceptTranslation } from "@/app/components/Maps";
 
 type PanelProps = {
   close?: (e: any) => void;
@@ -12,30 +10,6 @@ type PanelProps = {
 };
 
 export const Panel = ({ data, close }: PanelProps) => {
-  const submit = () => {};
-
-  // const onButtonClick = async (url: string, path: string) => {
-  //   const response = await axios({
-  //     method: "GET",
-  //     url,
-  //     responseType: "stream",
-  //   });
-
-  //   const writer = fs.createWriteStream(path);
-
-  //   response.data.pipe(writer);
-
-  //   return new Promise((resolve, reject) => {
-  //     writer.on("finish", resolve);
-  //     writer.on("error", reject);
-  //   });
-  // };
-
-  // ボタンクリックイベントのシミュレート
-  // onButtonClick("https://example.com/image.jpg", "./image.jpg")
-  //   .then(() => console.log("Image downloaded successfully"))
-  //   .catch((error) => console.error("Failed to download image:", error));
-
   return (
     <section className="bg-white rounded-xl p-8 mx-4 w-full max-w-[736px] text-left">
       <header className="flex justify-between">

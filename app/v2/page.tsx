@@ -15,8 +15,7 @@ export type PromptType = {
   poster_component: string[];
 };
 
-// v3
-export default function Latest() {
+export default function Version2() {
   const [design, setDesign] = useState<string>("");
   const [target, setTarget] = useState<string>("");
   const [subject, setSubject] = useState<string>("");

@@ -165,7 +165,7 @@ JSONのフォーマット“”"
           <div>
             <InputGraphCheckboxChips
               label="言語イメージスケールより感性ワードを選択"
-              updateConceptPrompt={setConcept}
+              onChange={(c) => setConcept(c)}
             />
           </div>
 

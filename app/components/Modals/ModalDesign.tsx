@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import React from "react";
-import { ConceptDataType } from "@/app/components/Maps";
-import { Panel } from "@/app/components/Panels";
+import { PanelDesign } from "@/app/components/Panels";
+import { DesignDataType } from "@/app/components/Maps";
 
-type ModalProps = {
+type ModalDesignProps = {
   close: () => void;
-  data: ConceptDataType;
+  data: DesignDataType;
 };
 
-export const Modal = ({ close, data }: ModalProps) => {
+export const ModalDesign = ({ close, data }: ModalDesignProps) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -32,7 +32,7 @@ export const Modal = ({ close, data }: ModalProps) => {
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
     >
-      <Panel data={data} close={close} />
+      <PanelDesign data={data} close={close} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { Message } from "ai";
-import { useChat } from "ai/react";
+import { useChat, useCompletion } from "ai/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { InputGraphCheckboxChips } from "@/app/components/Inputs";
@@ -15,7 +15,7 @@ export type PromptType = {
   poster_component: string[];
 };
 
-export default function Home() {
+export default function Version1() {
   const [design, setDesign] = useState<string>("");
   const [target, setTarget] = useState<string>("");
   const [concept, setConcept] = useState<string>("");
@@ -104,16 +104,27 @@ JSONのフォーマット“”"
     }
   };
 
-  const { messages, input, setInput, handleInputChange, handleSubmit } =
-    useChat({
+  const { completion, input, setInput, handleInputChange, handleSubmit } =
+    useCompletion({
       initialInput: promptTemplate,
-      onFinish: async (message: Message) => {
-        const obj: PromptType[] = JSON.parse(message.content);
+      onFinish: async (prompt: string, completion: string) => {
+        const obj: PromptType[] = JSON.parse(completion);
         for (const p of obj) {
           await generateImage(p);
         }
       },
     });
+
+  // const { messages, input, setInput, handleInputChange, handleSubmit } =
+  //   useChat({
+  //     initialInput: promptTemplate,
+  //     onFinish: async (message: Message) => {
+  //       const obj: PromptType[] = JSON.parse(message.content);
+  //       for (const p of obj) {
+  //         await generateImage(p);
+  //       }
+  //     },
+  //   });
 
   useEffect(() => {
     setInput(promptTemplate);
@@ -153,7 +164,7 @@ JSONのフォーマット“”"
           <div>
             <InputGraphCheckboxChips
               label="言語イメージスケールより感性ワードを選択"
-              updateConceptPrompt={setConcept}
+              onChange={(c) => setConcept(c)}
             />
           </div>
 
@@ -184,17 +195,10 @@ JSONのフォーマット“”"
       {/* プロンプト */}
       <div className="mt-64">
         <p className="text-lg font-bold leading-6 text-gray-900">生成Prompt</p>
-        {messages.length > 0
-          ? messages.map((message, index) => (
-              <div key={index}>
-                {message.role === "assistant" && (
-                  <p className="mt-1 text-sm text-gray-600  bg-gray-100 rounded-xl p-2">
-                    {message.content}
-                  </p>
-                )}
-              </div>
-            ))
-          : null}
+
+        <p className="mt-1 text-sm text-gray-600  bg-gray-100 rounded-xl p-2">
+          {completion}
+        </p>
       </div>
 
       {/* ポジショニングマップ */}
