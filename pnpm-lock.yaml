@@ -21,7 +21,7 @@ dependencies:
     specifier: 13.4.12
     version: 13.4.12(react-dom@18.2.0)(react@18.2.0)
   openai:
-    specifier: ^4.24.7
+    specifier: 4.24.7
     version: 4.24.7
   react:
     specifier: 18.2.0
