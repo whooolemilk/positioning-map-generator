@@ -23,10 +23,11 @@ export async function POST(req: Request) {
 
     // いい感じにテキストなおす
     // aiが最新のopenaiにバージョン対応していないため使えない
-    const stream = OpenAIStream(response);
+    // const stream = OpenAIStream(response);
 
     // ストリームで応答
-    return new StreamingTextResponse(stream);
+    // return new StreamingTextResponse(stream);
+    return;
   } catch (error) {
     console.log("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
