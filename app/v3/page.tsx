@@ -1,8 +1,8 @@
 "use client";
 
 import axios from "axios";
-import { useState } from "react";
-import { InputGraphCheckboxChips } from "@/app/components/Inputs";
+import { Suspense, useEffect, useState } from "react";
+import { InputGraphCheckboxChips, InputSelect } from "@/app/components/Inputs";
 import { InputText } from "@/app/components/Inputs/InputText";
 import { DesignDataType, MapDesign } from "@/app/components/Maps";
 import { DeeplLanguages } from "deepl";
@@ -10,10 +10,13 @@ import { Translator } from "@/app/libs/Translation";
 import { ImageGenerateParams } from "openai/resources";
 import { generatedConceptType } from "@/app/api/concept/route";
 
+type dalle3Style = "vivid" | "natural";
 export default function Version3() {
+  const dalle3Style = ["vivid", "natural"];
   const [design, setDesign] = useState<string>("");
   const [subject, setSubject] = useState<string>("");
   const [concept, setConcept] = useState<string>("");
+  const [style, setStyle] = useState<dalle3Style>("vivid");
   const [generatedDesigns, setGeneratedDesigns] = useState<DesignDataType[]>(
     []
   );
@@ -33,6 +36,10 @@ export default function Version3() {
     setConcept(newConcept);
   };
 
+  const handleStyleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    // console.log("style:", e.target.value);
+    setStyle(e.target.value as dalle3Style);
+  };
   const clickTranslate = (my_text: string, my_target_lang: DeeplLanguages) => {
     const translations = Translator(my_text, my_target_lang);
     const text = translations.then((result) => result.text);
@@ -50,6 +57,7 @@ export default function Version3() {
       prompt: enPrompt,
       n: 1,
       size: "1024x1024",
+      style: style,
     };
 
     // image生成
@@ -69,7 +77,7 @@ export default function Version3() {
       console.log("生成開始");
       const conceptParams = {
         design: design,
-        subject: subject,
+        subject: subject ? subject : null,
         concept: concept,
       };
 
@@ -97,20 +105,35 @@ export default function Version3() {
           console.log("results:", results);
           results.map(async (enPrompt, index) => {
             const urls = await generateImage(enPrompt);
-            const generatedDesign: DesignDataType = {
-              ...concepts[index],
+            const generatedDesign = {
+              // ...concepts[index],
+              concept: concepts[index].concept,
+              description: [concepts[index].description],
+              catchphrase: [concepts[index].catchphrase],
+              visual: [concepts[index].visual],
               images: urls,
             };
 
-            // ローカルストレージに保存するデータを作成
-            const isExisted = savedDesigns.some(
-              (design) => design.concept === generatedDesign.concept
+            const existedDesign = savedDesigns.find(
+              (design) => design.concept === concepts[index].concept
             );
 
-            if (isExisted) {
+            if (existedDesign) {
               savedDesigns
                 .find((design) => design.concept === generatedDesign.concept)
-                ?.images.push(...urls);
+                ?.catchphrase.push(generatedDesign.catchphrase[0]);
+
+              savedDesigns
+                .find((design) => design.concept === generatedDesign.concept)
+                ?.description.push(generatedDesign.description[0]);
+
+              savedDesigns
+                .find((design) => design.concept === generatedDesign.concept)
+                ?.visual.push(generatedDesign.visual[0]);
+
+              savedDesigns
+                .find((design) => design.concept === generatedDesign.concept)
+                ?.images.push(generatedDesign.images[0]);
             } else {
               savedDesigns.push(generatedDesign);
             }
@@ -129,6 +152,22 @@ export default function Version3() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  useEffect(() => {
+    // localStorageからgeneratedIdeasをget
+    const savedDesignsJson = localStorage.getItem("generatedDesigns");
+    let savedDesigns: DesignDataType[] = savedDesignsJson
+      ? JSON.parse(savedDesignsJson)
+      : [];
+
+    // generatedDesignsにset
+    setGeneratedDesigns(savedDesigns);
+  }, []);
+
+  const handleDeleteLocalStorage = () => {
+    localStorage.removeItem("generatedDesigns");
+    setGeneratedDesigns([]);
   };
 
   return (
@@ -150,12 +189,19 @@ export default function Version3() {
           </div>
           <div>
             <InputText
-              label="被写体は？"
+              label="被写体は？（任意）"
               id="subject"
               placeholder="例）bicycle, young boy"
               onChange={handleSubjectChange}
             />
           </div>
+          <InputSelect
+            label="生成する画像のスタイル"
+            id="style"
+            values={dalle3Style}
+            placeholder="選択してください"
+            onChange={handleStyleChange}
+          />
           <div>
             <InputGraphCheckboxChips
               label="言語イメージスケールより感性ワードを選択"
@@ -176,6 +222,16 @@ export default function Version3() {
 
       {/* ポジショニングマップ */}
       <MapDesign data={generatedDesigns} />
+
+      <div>
+        <button
+          type="button"
+          className="my-4 inline-flex justify-center w-full  border-2 border-red-600 rounded-full bg-white py-3 font-semibold text-red-600 shadow-sm hover:bg-red-100"
+          onClick={handleDeleteLocalStorage}
+        >
+          生成データ削除
+        </button>
+      </div>
     </div>
   );
 }

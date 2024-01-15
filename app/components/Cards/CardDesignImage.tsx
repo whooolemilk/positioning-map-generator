@@ -34,6 +34,9 @@ export const CardDesignImage = ({
           className="rounded-lg"
           src={data?.images[0] ? data?.images[0] : Empty}
           alt={label}
+          sizes="(max-width: 768px) 100vw,
+          (max-width: 1200px) 50vw,
+          33vw"
           fill
         />
       </button>

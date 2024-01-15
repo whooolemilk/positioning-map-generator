@@ -11,7 +11,7 @@ export const runtime = "edge";
 
 export async function POST(req: Request) {
   // requestからpromptを抽出
-  const { prompt, n, size }: ImageGenerateParams = await req.json();
+  const { prompt, n, size, style }: ImageGenerateParams = await req.json();
   if (!prompt) {
     return new NextResponse("Prompt are required", { status: 400 });
   }
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     n: n,
     size: size,
     model: "dall-e-3",
-    style: "vivid",
+    style: style,
     response_format: "url",
   });
 

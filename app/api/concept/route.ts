@@ -31,14 +31,16 @@ export async function POST(req: Request) {
           "concept":コンセプト
           “catchphrase”: ポスター企画のキャッチコピー(日本語),
           “description”: ポスター企画の詳細な説明文(日本語),
-          “visual”: ポスターのビジュアルを示す詳細な説明文(日本語),
+          “visual”: [被写体]を含む、ポスターのビジュアルを示す詳細な説明文(日本語),
         }
         “”"
         `,
       },
       {
         role: "user",
-        content: `[画像の抽象的な情報]=${design}\n [コンセプト]=${concept}`,
+        content: `[画像の抽象的な情報]=${design}\n [コンセプト]=${concept}}\n ${
+          subject && `[被写体]=${subject}`
+        }`,
       },
     ],
   });

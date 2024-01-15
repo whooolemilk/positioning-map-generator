@@ -3,10 +3,17 @@
 import Image from "next/image";
 import { useMemo } from "react";
 import GraphLg from "@/app/assets/images/graph-lg.png";
-import { generatedConceptType } from "@/app/generate-concept/page";
 import { CardDesignImage } from "@/app/components/Cards";
+import { generatedConceptType } from "@/app/api/concept/route";
 
-export type DesignDataType = generatedConceptType & {
+// export type DesignDataType = generatedConceptType & {
+//   images: string[];
+// };
+
+export type DesignDataType = Pick<generatedConceptType, "concept"> & {
+  catchphrase: string[];
+  description: string[];
+  visual: string[];
   images: string[];
 };
 
